@@ -1,0 +1,13 @@
+species	copy	status	count
+nxCaeAuri1	Multi-copy	Eliminated and retained DNA	52
+nxCaeAuri1	Multi-copy	Eliminated DNA only	68
+nxCaeAuri1	Single-copy	Orphan 	26
+nxCaeAuri1	Single-copy	Homologs in other species	6
+nxCaeMono1	Multi-copy	Eliminated and retained DNA	46
+nxCaeMono1	Multi-copy	Eliminated DNA only	6
+nxCaeMono1	Single-copy	Orphan 	9
+nxCaeMono1	Single-copy	Homologs in other species	2
+nxCaeParv1	Multi-copy	Eliminated and retained DNA	23
+nxCaeParv1	Multi-copy	Eliminated DNA only	19
+nxCaeParv1	Single-copy	Orphan 	7
+nxCaeParv1	Single-copy	Homologs in other species	21
