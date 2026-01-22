@@ -131,12 +131,11 @@ location_counts <- df %>%
 
 spec <- df %>%
   ggplot(aes(x=location, y=score)) +
-  geom_point(position="jitter", pch=21, aes(fill=location)) +
-  geom_boxplot(aes(fill=location), alpha=0.5, outlier.shape = NA) +
+  geom_point(position="jitter", pch=21, aes(fill=location), size=3) +
   theme_bw() +
   labs(x = "Location", y = "Score") +
   facet_grid(~species, labeller = as_labeller(species_labels, default = label_parsed)) +
-  geom_text(data = location_counts, aes(x = location, y = 143, label = n), size = 5) +
+  geom_text(data = location_counts, aes(x = location, y = 42, label = n), size = 5) +
   theme(legend.position = "none", text = element_text(size = 14))
 
 # compile plot and save

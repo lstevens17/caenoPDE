@@ -17,6 +17,16 @@ species_labels <- c(
   "nxCaeParv1" = "italic('C. parvicauda')"
 )
 
+table$status <- factor(
+  table$status,
+  levels = c(
+    "Eliminated and retained DNA",
+    "Eliminated DNA only",
+    "Orphan",
+    "Homologs in other species"
+  )
+)
+
 # Plot with facets for species
 go_p <- table %>% 
   ggplot(aes(x = copy, y = count, fill = status)) + 
@@ -232,3 +242,4 @@ IV_right_combined_p <- ggplot(IV_right_combined, aes(x=query_start/1e3, y=refere
   scale_fill_gradient(low = "#b5d6e8", high = "#046cb3", name = "Percent\nidentity (%)", limits = c(90,100), oob=squish) 
 
 ggsave("dotplot_legend.pdf", IV_right_combined_p, height=50, width=200, units="mm")
+

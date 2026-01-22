@@ -1,0 +1,66 @@
+library(ggplot2)
+library(tidyverse)
+library(scales)
+
+#### d-e) Dot plots ####
+# read in bed file
+IV_middle_bed <- read.table("tandem_repeats/dot_plots/nxCaeAuri1_IV_6924762-7184171.bed", header=T)
+
+# mirror the values
+IV_middle_bed_mirrored <- IV_middle_bed %>% 
+  mutate(
+    temp_start = query_start,
+    temp_end = query_end,
+    query_start = reference_start,
+    query_end = reference_end,
+    reference_start = temp_start,
+    reference_end = temp_end
+  ) %>% 
+  select(-temp_start, -temp_end)
+
+# combine into one dataframe
+IV_middle_combined <- rbind(IV_middle_bed, IV_middle_bed_mirrored) 
+
+# calculate window size
+window <- head(IV_middle_combined$query_end, 1)
+
+IV_middle_combined_p <- ggplot(IV_middle_combined, aes(x=query_start/1e3, y=reference_start/1e3, fill=perID_by_events, height=window/1e3, width=window/1e3)) + 
+  geom_tile() + 
+  theme_bw() + 
+  xlab("Position (kb)") + ylab("Position (kb)") + 
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0)) + 
+  scale_fill_continuous(name="Percent identity (%)") + 
+  scale_fill_gradient(low = "#b5d6e8", high = "#046cb3", name = "Percent\nidentity (%)", limits = c(90,100), oob=squish) + 
+  theme(legend.position = "none")
+
+# read in bed file
+IV_right_bed <- read.table("tandem_repeats/dot_plots/nxCaeAuri1_IV_18405029-18607180.bed", header=T)
+
+# mirror the values
+IV_right_bed_mirrored <- IV_right_bed %>% 
+  mutate(
+    temp_start = query_start,
+    temp_end = query_end,
+    query_start = reference_start,
+    query_end = reference_end,
+    reference_start = temp_start,
+    reference_end = temp_end
+  ) %>% 
+  select(-temp_start, -temp_end)
+
+# combine into one dataframe
+IV_right_combined <- rbind(IV_right_bed, IV_right_bed_mirrored) 
+
+# calculate window size
+window <- head(IV_right_combined$query_end, 1)
+
+IV_right_combined_p <- ggplot(IV_right_combined, aes(x=query_start/1e3, y=reference_start/1e3, fill=perID_by_events, height=window/1e3, width=window/1e3)) + 
+  geom_tile() + 
+  theme_bw() + 
+  xlab("Position (kb)") + ylab("Position (kb)") + 
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0)) + 
+  scale_fill_continuous(name="Percent identity (%)") + 
+  scale_fill_gradient(low = "#b5d6e8", high = "#046cb3", name = "Percent\nidentity (%)", limits = c(90,100), oob=squish) + 
+  theme(legend.position = "none")
+
+ggsave("tmp_IV_middle_combined_p.png", plot = IV_middle_combined_p, width=5, height=5, units="in")
